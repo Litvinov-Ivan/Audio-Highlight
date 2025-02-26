@@ -1,0 +1,9 @@
+.idea/
+/example_tracks/
+/notebooks/
+/weights/
+__pycache__/
+/lib/config.yaml
+lib/watchdog_service/__pycache__
+lib/watchdog_service/nohup.out
+lib/telegram_bot/nohup.out

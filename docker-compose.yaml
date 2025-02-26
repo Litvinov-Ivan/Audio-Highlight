@@ -1,0 +1,29 @@
+services:
+  app:
+    build: .
+    container_name: app
+    expose:
+      - 8501
+    networks:
+      - audio-highlight-net
+    command: bash -c "python -m streamlit run app.py"
+
+  nginx-entrypoint:
+    image: nginx
+    hostname: nginx-entrypoint
+    container_name: nginx-entrypoint
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ../audio-highlight-nginx-config/sites-available:/etc/nginx/sites-available
+      - ../audio-highlight-nginx-config/sites-enabled:/etc/nginx/sites-enabled
+      - ../audio-highlight-nginx-config/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - audio-highlight-net
+
+networks:
+  audio-highlight-net:
+    name: audio-highlight-net
+    driver: bridge
